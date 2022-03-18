@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("")
     @ResponseStatus(CREATED)
     public User createUser(@RequestBody User user) {
-        log.info("process=create-user, user_email={}", user.getEmail());
+        log.info("process=create-user");
         return userService.createUser(user);
     }
 

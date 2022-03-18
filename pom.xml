@@ -28,7 +28,7 @@
         <jjwt.version>0.6.0</jjwt.version>
 
         <flyway.url>jdbc:postgresql://localhost:5432/postgres</flyway.url>
-        <flyway.user>postgres</flyway.user>
+        <flyway.user>siva</flyway.user>
         <flyway.password>secret</flyway.password>
     </properties>
 

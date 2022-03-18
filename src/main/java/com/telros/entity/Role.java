@@ -16,5 +16,4 @@ public class Role {
 
     @Column(name="name", unique = true)
     String name;
-
 }

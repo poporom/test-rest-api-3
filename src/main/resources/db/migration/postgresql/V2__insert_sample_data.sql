@@ -1,5 +1,5 @@
 
-INSERT INTO USERS (id, username, password, name, email, enabled, last_password_reset_date) VALUES
+INSERT INTO USERS (id, username, password, enabled, last_password_reset_date) VALUES
 (1, 'admin', '$2a$10$zuI3P8hoZNkFGR2dDPW9juA1C1xIHBUNrKMGqjjaEKsLTwjJkKoNa', true, CURRENT_TIMESTAMP),
 (2, 'siva', '$2a$10$LskLrNP6m.dEpXYjT41lRePseXJEjhd6.sPH2Z5GbbShtaFRWoeYq', true, CURRENT_TIMESTAMP);
 

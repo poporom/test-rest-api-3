@@ -62,9 +62,7 @@ public class UserControllerTests {
         this.mockMvc
                 .perform(get("/api/users/"+existingUser.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(existingUser.getId())))
-                .andExpect(jsonPath("$.name", is(existingUser.getName())))
-                .andExpect(jsonPath("$.email", is(existingUser.getEmail())));
+                .andExpect(jsonPath("$.id", is(existingUser.getId())));
     }
 
     @Test
@@ -77,9 +75,7 @@ public class UserControllerTests {
                         .content(objectMapper.writeValueAsString(newUser))
                 )
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.name", is(newUser.getName())))
-                .andExpect(jsonPath("$.email", is(newUser.getEmail())));
+                .andExpect(jsonPath("$.id", notNullValue()));
     }
 
     @Test
@@ -92,9 +88,7 @@ public class UserControllerTests {
                         .content(objectMapper.writeValueAsString(existingUser))
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(existingUser.getId())))
-                .andExpect(jsonPath("$.name", is(existingUser.getName())))
-                .andExpect(jsonPath("$.email", is( existingUser.getEmail())));
+                .andExpect(jsonPath("$.id", is(existingUser.getId())));
     }
 
     @Test

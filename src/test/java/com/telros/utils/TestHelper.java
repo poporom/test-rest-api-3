@@ -13,8 +13,6 @@ public class TestHelper {
         return User.builder()
                 .username("username-"+uuid)
                 .password(uuid)
-                .name("name-"+uuid)
-                .email(format("someone-%s@gmail.com", uuid))
                 .build();
     }
 
@@ -25,8 +23,6 @@ public class TestHelper {
                 .id(random.nextLong())
                 .username("username-"+uuid)
                 .password(uuid)
-                .name("name-"+uuid)
-                .email(format("someone-%s@gmail.com", uuid))
                 .build();
     }
 }

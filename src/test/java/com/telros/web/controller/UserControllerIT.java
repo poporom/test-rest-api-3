@@ -61,7 +61,6 @@ public class UserControllerIT extends BaseIntegrationTest {
         ResponseEntity<User> responseEntity = restTemplate.getForEntity("/api/users/"+updateUser.getId(), User.class);
         User updatedUser = responseEntity.getBody();
         assertThat(updatedUser.getId()).isEqualTo(updateUser.getId());
-        assertThat(updatedUser.getEmail()).isEqualTo(updateUser.getEmail());
     }
 
     @Test

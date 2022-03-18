@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="USERS")
+@Table(name="users")
 public class User {
 
     @Id
@@ -27,12 +27,6 @@ public class User {
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "email", unique = true)
-    private String email;
 
     @Column(name = "enabled")
     private boolean enabled;
@@ -51,5 +45,4 @@ public class User {
         this.setLastPasswordResetDate( now );
         this.password = password;
     }
-
 }
