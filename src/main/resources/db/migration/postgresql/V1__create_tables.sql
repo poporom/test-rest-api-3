@@ -27,7 +27,7 @@ create table users (
     password varchar(255) not null,
     enabled boolean not null,
     last_password_reset_date timestamp,
-    user_detail_id bigint REFERENCES user_info(id),
+    user_info_id bigint REFERENCES user_info(id),
     image_id bigint REFERENCES images(id),
     primary key (id)
 );

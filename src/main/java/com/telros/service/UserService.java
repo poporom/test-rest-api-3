@@ -42,4 +42,8 @@ public class UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    public User findByUserInfoId(Long userInfoId) {return userRepository.findByUserInfoId(userInfoId); }
+
+    public User findByImageId(Long imageId) {return  userRepository.findByImageId(imageId); }
 }
