@@ -58,9 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
             .exceptionHandling().authenticationEntryPoint( restAuthenticationEntryPoint ).and()
             .authorizeRequests()
-            .antMatchers("/auth/**").permitAll()
+            //.antMatchers("/auth/**").permitAll()
             //.antMatchers(HttpMethod.POST,"/users").hasAnyRole("USER", "ADMIN")
-            //.anyRequest().authenticated()
+            .anyRequest().authenticated()
             .and()
             .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, jwtUserDetailsService), BasicAuthenticationFilter.class);
 
@@ -73,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // TokenAuthenticationFilter will ignore the below paths
         web.ignoring().antMatchers(
                 HttpMethod.POST,
-                "/auth/login"
+                "/api/auth/login"
         );
 
     }

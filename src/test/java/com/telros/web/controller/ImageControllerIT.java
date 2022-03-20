@@ -1,7 +1,6 @@
 package com.telros.web.controller;
 
 import com.telros.entity.Image;
-import com.telros.model.ImageRequest;
 import com.telros.repo.ImageRepository;
 import com.telros.repo.UserRepository;
 import com.telros.utils.BaseIntegrationTest;
@@ -24,7 +23,6 @@ public class ImageControllerIT extends BaseIntegrationTest {
     private Image newImage;
     private Image updateImage;
     private Image existingImage;
-    private ImageRequest imageRequest;
 
     @Autowired
     TestRestTemplate restTemplate;
@@ -46,10 +44,6 @@ public class ImageControllerIT extends BaseIntegrationTest {
         updateImage = imageRepository.save(updateImage);
         existingImage = TestHelper.buildImage();
         existingImage = imageRepository.save(existingImage);
-        imageRequest = new ImageRequest();
-        imageRequest.setId(newImage.getId());
-        imageRequest.setUrl(newImage.getUrl());
-        imageRequest.setUserId(newUser.getId());
     }
 
     @After
@@ -78,7 +72,7 @@ public class ImageControllerIT extends BaseIntegrationTest {
 
     @Test
     void should_create_image() {
-        HttpEntity<Image> request= new HttpEntity<>(imageRequest);
+        HttpEntity<Image> request= new HttpEntity<>(newImage);
         ResponseEntity<Image> responseEntity = restTemplate.postForEntity("/api/images", request, Image.class);
         Image savedImage = responseEntity.getBody();
         assertThat(savedImage.getId()).isNotNull();

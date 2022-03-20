@@ -1,7 +1,6 @@
 package com.telros.web.controller;
 
 import com.telros.entity.UserInfo;
-import com.telros.model.UserInfoRequest;
 import com.telros.repo.UserInfoRepository;
 import com.telros.repo.UserRepository;
 import com.telros.utils.BaseIntegrationTest;
@@ -24,7 +23,6 @@ public class UserInfoControllerIT extends BaseIntegrationTest {
     private UserInfo newUserInfo;
     private UserInfo updateUserInfo;
     private UserInfo existingUserInfo;
-    private UserInfoRequest userInfoRequest;
 
     @Autowired
     TestRestTemplate restTemplate;
@@ -40,21 +38,12 @@ public class UserInfoControllerIT extends BaseIntegrationTest {
         setupTestData();
 
         newUserInfo = TestHelper.buildUserInfo();
+        newUserInfo.setUser(newUser);
         newUserInfo = userInfoRepository.save(newUserInfo);
-        newUser.setUserInfo(newUserInfo);
-        newUser = userRepository.save(newUser);
         updateUserInfo = TestHelper.buildUserInfo();
         updateUserInfo = userInfoRepository.save(updateUserInfo);
         existingUserInfo = TestHelper.buildUserInfo();
         existingUserInfo = userInfoRepository.save(existingUserInfo);
-        userInfoRequest = new UserInfoRequest();
-        userInfoRequest.setId(newUserInfo.getId());
-        userInfoRequest.setFirstName(newUserInfo.getFirstName());
-        userInfoRequest.setLastName(newUserInfo.getLastName());
-        userInfoRequest.setPatronymic(newUserInfo.getPatronymic());
-        userInfoRequest.setEmail(newUserInfo.getEmail());
-        userInfoRequest.setBirthday(newUserInfo.getBirthday());
-        userInfoRequest.setUserId(newUser.getId());
     }
 
     @After
@@ -83,7 +72,7 @@ public class UserInfoControllerIT extends BaseIntegrationTest {
 
     @Test
     void should_create_userInfo() {
-        HttpEntity<UserInfo> request= new HttpEntity<>(userInfoRequest);
+        HttpEntity<UserInfo> request= new HttpEntity<>(newUserInfo);
         ResponseEntity<UserInfo> responseEntity = restTemplate.postForEntity("/api/userInfos", request, UserInfo.class);
         UserInfo savedUserInfo = responseEntity.getBody();
         assertThat(savedUserInfo.getId()).isNotNull();

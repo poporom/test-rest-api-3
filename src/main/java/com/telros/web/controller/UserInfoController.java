@@ -1,8 +1,6 @@
 package com.telros.web.controller;
 
-import com.telros.entity.User;
 import com.telros.entity.UserInfo;
-import com.telros.model.UserInfoRequest;
 import com.telros.service.UserInfoService;
 import com.telros.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +32,7 @@ public class UserInfoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserInfo> getUserInfo(@PathVariable Long id) {
+    public ResponseEntity<UserInfo> getUserInfo(@PathVariable Integer id) {
         log.info("process=get-userinfo, user_info_id={}", id);
         Optional<UserInfo> userInfo = userInfoService.getUserInfoById(id);
         return userInfo.map(u -> ResponseEntity.ok(u))
@@ -43,28 +41,24 @@ public class UserInfoController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserInfo createUserInfo(@RequestBody UserInfoRequest userInfoRequest) {
-        log.info("process=create-userinfo, user_id={}", userInfoRequest.getUserId());
-        UserInfo userInfo = userInfoService.createUserInfo(userInfoRequest);
-        User user = userService.getUserById(userInfoRequest.getUserId()).get();
-        user.setUserInfo(userInfo);
-        userService.updateUser(user);
-        return userInfo;
+    public UserInfo createUserInfo(@RequestBody UserInfo userInfo) {
+        log.info("process=create-userinfo, id={}", userInfo);
+        return userInfoService.createUserInfo(userInfo);
     }
 
     @PutMapping("/{id}")
-    public UserInfo updateUserInfo(@PathVariable Long id, @RequestBody UserInfo userInfo) {
+    public UserInfo updateUserInfo(@PathVariable Integer id, @RequestBody UserInfo userInfo) {
         log.info("process=update-userinfo, user_info_id={}",id);
         userInfo.setId(id);
         return userInfoService.updateUserInfo(userInfo);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUserInfo(@PathVariable Long id) {
+    public void deleteUserInfo(@PathVariable Integer id) {
         log.info("process=delete-userinfo, user-info-id={}", id);
-        User user = userService.findByUserInfoId(id);
-        user.setUserInfo(null);
-        userService.updateUser(user);
+//        User user = userService.findByUserInfoId(id);
+//        user.setUserInfo(null);
+//        userService.updateUser(user);
         userInfoService.deleteUserInfo(id);
     }
 }

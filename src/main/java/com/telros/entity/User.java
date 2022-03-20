@@ -1,11 +1,13 @@
 package com.telros.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -18,9 +20,9 @@ import java.util.List;
 public class User {
 
     @Id
-    @SequenceGenerator(name = "user_id_generator", sequenceName = "user_id_seq")
-    @GeneratedValue(generator = "user_id_generator")
-    private Long id;
+    @SequenceGenerator(name = "users_id_generator", sequenceName = "users_id_seq")
+    @GeneratedValue(generator = "users_id_generator")
+    private Integer id;
 
     @Column(name = "username", unique = true)
     private String username;
@@ -34,12 +36,14 @@ public class User {
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_info_id", referencedColumnName = "id")
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_info_id", nullable = false)
+    @NotNull
     private UserInfo userInfo;
 
     @ManyToOne
-    @JoinColumn(name="image_id", nullable=false)
+    @JoinColumn(name="image_id", nullable = false)
+    @NotNull
     private Image image;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

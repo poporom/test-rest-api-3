@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static com.google.common.primitives.Longs.asList;
+
 @Service
 @Transactional
 public class UserService {
@@ -20,7 +22,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> getUserById(Long id) {
+    public Optional<User> getUserById(Integer id) {
         return userRepository.findById(id);
     }
 
@@ -36,17 +38,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
     }
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-
-    public User findByUserInfoId(Long userInfoId) {return userRepository.findByUserInfoId(userInfoId); }
-
-    //public User findByUserInfo(UserInfo userInfo) {return userRepository.findByUserInfo(userInfo); }
-
-    //public User findByImageId(Long imageId) {return  userRepository.findByImageId(imageId); }
 }

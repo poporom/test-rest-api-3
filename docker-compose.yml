@@ -13,14 +13,14 @@ services:
 
   postgres:
     image: postgres
-    container_name: telrosdb
+    container_name: telros
     environment:
       - POSTGRES_USER=siva
       - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=appdb
-      - PGDATA=/data/telrosdata
+      - POSTGRES_DB=telros
+      - PGDATA=/data/telros
     volumes:
-      - ~/data/postgres:/data/telrosdata
+      - ./postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     restart: unless-stopped

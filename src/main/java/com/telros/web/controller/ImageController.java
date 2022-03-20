@@ -2,7 +2,6 @@ package com.telros.web.controller;
 
 import com.telros.entity.Image;
 import com.telros.entity.User;
-import com.telros.model.ImageRequest;
 import com.telros.service.ImageService;
 import com.telros.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +33,7 @@ public class ImageController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Image> getImage(@PathVariable Long id) {
+    public ResponseEntity<Image> getImage(@PathVariable Integer id) {
         log.info("process=get-image, image_id={}", id);
         Optional<Image> image = imageService.getImageById(id);
         return image.map(u -> ResponseEntity.ok(u))
@@ -43,24 +42,24 @@ public class ImageController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Image createImage(ImageRequest imageRequest){
-        log.info("process=create-image, user_id={}", imageRequest.getUserId());
-        Image image = imageService.createImage(imageRequest);
-        User user = userService.getUserById(imageRequest.getUserId()).get();
-        image.setUsers(asList(user));
-        return image;
+    public Image createImage(@RequestBody Image image){
+        log.info("process=create-image, id={}", image.getId());
+         return imageService.createImage(image);
     }
 
     @PutMapping("/{id}")
-    public Image updateImage(@PathVariable Long id, Image image) {
+    public Image updateImage(@PathVariable Integer id, @RequestBody Image image) {
         log.info("process=update-image, image_id={}", id);
         image.setId(id);
         return imageService.updateImage(image);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteImage(@PathVariable Long id) {
+    public void deleteImage(@PathVariable Integer id) {
         log.info("process=delete-image, image_id={}", id);
+//        User user = userService.findByUserInfoId(id);
+//        user.setImage(null);
+//        userService.updateUser(user);
         imageService.deleteImage(id);
     }
 }

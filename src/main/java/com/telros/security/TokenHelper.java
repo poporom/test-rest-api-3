@@ -2,6 +2,7 @@ package com.telros.security;
 
 import com.telros.config.TimeProvider;
 import com.telros.entity.User;
+import com.telros.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -32,6 +33,9 @@ public class TokenHelper {
 
     @Autowired
     TimeProvider timeProvider;
+
+    @Autowired
+    UserService userService;
 
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
@@ -119,7 +123,8 @@ public class TokenHelper {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
+        SecurityUser securityUser = (SecurityUser) userDetails;
+        User user = userService.findByUsername(securityUser.getUsername());
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
         return (

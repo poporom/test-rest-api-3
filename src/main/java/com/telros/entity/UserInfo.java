@@ -1,13 +1,14 @@
 package com.telros.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @Builder
@@ -16,10 +17,11 @@ import java.util.List;
 @Entity
 @Table(name = "user_info")
 public class UserInfo {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
-    @Column(name = "id")
-    private Long id;
+    @SequenceGenerator(name = "user_info_id_generator", sequenceName = "user_info_id_seq")
+    @GeneratedValue(generator = "user_info_id_generator")
+    private Integer id;
 
     @Basic
     @Column(name = "first_name")
@@ -45,6 +47,9 @@ public class UserInfo {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "userInfo")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OneToOne(optional= false, mappedBy="userInfo")
+    @NotNull
     private User user;
 }

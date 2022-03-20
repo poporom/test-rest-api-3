@@ -3,16 +3,21 @@ package com.telros.web.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telros.entity.UserInfo;
 import com.telros.service.UserInfoService;
+import com.telros.service.UserService;
 import com.telros.utils.TestHelper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -27,13 +32,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = UserInfoController.class, secure = false)
+@SpringBootTest
+@ContextConfiguration
 public class UserInfoControllerTests {
-    
+
+    @Autowired
+    private WebApplicationContext context;
+
     @MockBean
     UserInfoService userInfoService;
 
-    @Autowired
     private MockMvc mockMvc;
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -45,6 +53,10 @@ public class UserInfoControllerTests {
         newUserInfo = TestHelper.buildUserInfo();
         existingUserInfo = TestHelper.buildUserInfo();
         updateUserInfo = TestHelper.buildUserInfo();
+
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .build();
     }
 
     @Test

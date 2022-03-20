@@ -4,6 +4,7 @@ import com.telros.entity.User;
 import com.telros.model.AuthenticationRequest;
 import com.telros.model.ChangePassword;
 import com.telros.model.UserTokenState;
+import com.telros.security.SecurityUser;
 import com.telros.security.TokenHelper;
 import com.telros.service.CustomUserDetailsService;
 import com.telros.service.UserService;
@@ -54,7 +55,7 @@ public class AuthenticationController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        User user = (User)authentication.getPrincipal();
+        SecurityUser user = (SecurityUser) authentication.getPrincipal();
         String jws = tokenHelper.generateToken( user.getUsername());
         long expiresIn = tokenHelper.getExpiredIn();
         return ResponseEntity.ok(new UserTokenState(jws, expiresIn));

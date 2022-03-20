@@ -27,7 +27,7 @@
         <logstash-logback.version>4.9</logstash-logback.version>
         <jjwt.version>0.6.0</jjwt.version>
 
-        <flyway.url>jdbc:postgresql://localhost:5432/postgres</flyway.url>
+        <flyway.url>jdbc:postgresql://localhost:5432/telros</flyway.url>
         <flyway.user>siva</flyway.user>
         <flyway.password>secret</flyway.password>
     </properties>

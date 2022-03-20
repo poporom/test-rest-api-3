@@ -1,6 +1,7 @@
 package com.telros.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.telros.config.WebSecurityConfig;
 import com.telros.utils.TestHelper;
 import com.telros.entity.User;
 import com.telros.service.UserService;
@@ -9,10 +10,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -25,14 +30,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = UserController.class, secure = false)
+@SpringBootTest
+@ContextConfiguration
 public class UserControllerTests {
+
+    @Autowired
+    private WebApplicationContext context;
+
+    private MockMvc mockMvc;
 
     @MockBean
     UserService userService;
-
-    @Autowired
-    private MockMvc mockMvc;
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -43,6 +51,10 @@ public class UserControllerTests {
         newUser = TestHelper.buildUserWithId();
         existingUser = TestHelper.buildUserWithId();
         updateUser = TestHelper.buildUserWithId();
+
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .build();
     }
 
     @Test

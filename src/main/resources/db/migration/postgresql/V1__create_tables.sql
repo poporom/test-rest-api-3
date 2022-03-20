@@ -1,44 +1,35 @@
-create sequence user_id_seq start with 1 increment by 1;
-create sequence role_id_seq start with 1 increment by 1;
-create sequence user_info_id_seq start with 1 increment by 1;
-create sequence image_id_seq start with 1 increment by 1;
-
 create table user_info (
-    id bigint DEFAULT nextval('user_info_id_seq') not null,
+    id SERIAL PRIMARY KEY,
     first_name varchar(255),
     last_name varchar(255),
     patronymic varchar(255),
     birthday timestamp,
     email varchar(255) not null CONSTRAINT user_email_unique UNIQUE,
-    phone_number varchar(10),
-    primary key (id)
+    phone_number varchar(10)
 );
 
 create table images (
-    id bigint DEFAULT nextval('image_id_seq') not null,
-    url varchar(255) not null,
-    primary key (id)
+    id SERIAL PRIMARY KEY,
+    url varchar(255) not null
 );
 
 
 create table users (
-    id bigint DEFAULT nextval('user_id_seq') not null,
+    id SERIAL PRIMARY KEY,
     username varchar(255) not null CONSTRAINT user_username_unique UNIQUE,
     password varchar(255) not null,
     enabled boolean not null,
     last_password_reset_date timestamp,
-    user_info_id bigint REFERENCES user_info(id),
-    image_id bigint REFERENCES images(id),
-    primary key (id)
+    user_info_id integer REFERENCES user_info(id),
+    image_id integer REFERENCES images(id)
 );
 
 create table roles (
-    id bigint DEFAULT nextval('role_id_seq') not null,
-    name varchar(255) not null CONSTRAINT role_name_unique UNIQUE,
-    primary key (id)
+    id SERIAL PRIMARY KEY,
+    name varchar(255) not null CONSTRAINT role_name_unique UNIQUE
 );
 
 create table user_role (
-    user_id bigint REFERENCES users(id),
-    role_id bigint REFERENCES roles(id)
+    user_id integer REFERENCES users(id),
+    role_id integer REFERENCES roles(id)
 );

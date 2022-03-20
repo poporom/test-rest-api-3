@@ -48,7 +48,7 @@ public abstract class BaseIntegrationTest {
 
     public static PostgreSQLContainer postgreSQLContainer =
             (PostgreSQLContainer) new PostgreSQLContainer("postgres:10.4")
-                    .withDatabaseName("telrosdb")
+                    .withDatabaseName("telros")
                     .withUsername("siva")
                     .withPassword("secret")
                     .withStartupTimeout(Duration.ofSeconds(600));

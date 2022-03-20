@@ -22,7 +22,7 @@ public class TestHelper {
         Random random = new Random();
         String uuid = UUID.randomUUID().toString();
         return User.builder()
-                .id(random.nextLong())
+                .id(random.nextInt())
                 .username("username-"+uuid)
                 .password(uuid)
                 .build();
@@ -32,7 +32,7 @@ public class TestHelper {
         Random random = new Random();
         String uuid = UUID.randomUUID().toString();
         return Image.builder()
-                .id(random.nextLong())
+                .id(random.nextInt())
                 .url(uuid)
                 .build();
     }
@@ -42,7 +42,7 @@ public class TestHelper {
         String uuid = UUID.randomUUID().toString();
         Timestamp birthday = new Timestamp(System.currentTimeMillis());
         return UserInfo.builder()
-                .id(random.nextLong())
+                .id(random.nextInt())
                 .firstName("firstname-" + uuid)
                 .lastName("lastname-" + uuid)
                 .patronymic("patronymic-" + uuid)

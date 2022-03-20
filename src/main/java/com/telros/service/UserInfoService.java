@@ -13,13 +13,15 @@ import java.util.Optional;
 @Transactional
 public class UserInfoService {
     private final UserInfoRepository userInfoRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserInfoService(UserInfoRepository userInfoRepository) {
+    public UserInfoService(UserInfoRepository userInfoRepository, UserService userService) {
         this.userInfoRepository = userInfoRepository;
+        this.userService = userService;
     }
 
-    public Optional<UserInfo> getUserInfoById(Long id) {
+    public Optional<UserInfo> getUserInfoById(Integer id) {
         return userInfoRepository.findById(id);
     }
 
@@ -28,6 +30,7 @@ public class UserInfoService {
     }
 
     public UserInfo createUserInfo(UserInfo userInfo) {
+        userInfo.setUser(userService.getUserById(userInfo.getUser().getId()).get());
         return userInfoRepository.save(userInfo);
     }
 
@@ -35,7 +38,7 @@ public class UserInfoService {
         return userInfoRepository.save(userInfo);
     }
 
-    public void deleteUserInfo(Long userInfoId) {
+    public void deleteUserInfo(Integer userInfoId) {
         userInfoRepository.deleteById(userInfoId);
     }
 }
