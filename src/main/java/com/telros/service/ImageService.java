@@ -19,11 +19,11 @@ public class ImageService {
         this.imageRepository = imageRepository;
     }
 
-    public List<Image> getImages() {
+    public List<Image> getAllImages() {
         return imageRepository.findAll();
     }
 
-    public Optional<Image> getImage(Long id) {
+    public Optional<Image> getImageById(Long id) {
         return imageRepository.findById(id);
     }
 

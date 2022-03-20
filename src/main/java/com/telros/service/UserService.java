@@ -1,6 +1,7 @@
 package com.telros.service;
 
 import com.telros.entity.User;
+import com.telros.entity.UserInfo;
 import com.telros.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,7 @@ public class UserService {
 
     public User findByUserInfoId(Long userInfoId) {return userRepository.findByUserInfoId(userInfoId); }
 
-    public User findByImageId(Long imageId) {return  userRepository.findByImageId(imageId); }
+    //public User findByUserInfo(UserInfo userInfo) {return userRepository.findByUserInfo(userInfo); }
+
+    //public User findByImageId(Long imageId) {return  userRepository.findByImageId(imageId); }
 }

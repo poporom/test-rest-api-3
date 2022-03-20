@@ -2,10 +2,12 @@ package com.telros.web.controller;
 
 import com.telros.entity.User;
 import com.telros.entity.UserInfo;
+import com.telros.model.UserInfoRequest;
 import com.telros.service.UserInfoService;
 import com.telros.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/userinfo")
+@RequestMapping("/api/userinfos")
 @Slf4j
 public class UserInfoController {
     private final UserInfoService userInfoService;
@@ -39,12 +41,13 @@ public class UserInfoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/{userId}")
-    public UserInfo createUserInfo(@PathVariable Long userId, @RequestBody UserInfo model) {
-        log.info("process=create-userinfo, user_id={}", userId);
-        UserInfo userInfo = userInfoService.createUserInfo(model);
-        User user = userService.getUserById(userId).get();
-        user.setUserInfoId(userInfo.getId());
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserInfo createUserInfo(@RequestBody UserInfoRequest userInfoRequest) {
+        log.info("process=create-userinfo, user_id={}", userInfoRequest.getUserId());
+        UserInfo userInfo = userInfoService.createUserInfo(userInfoRequest);
+        User user = userService.getUserById(userInfoRequest.getUserId()).get();
+        user.setUserInfo(userInfo);
         userService.updateUser(user);
         return userInfo;
     }
@@ -60,14 +63,8 @@ public class UserInfoController {
     public void deleteUserInfo(@PathVariable Long id) {
         log.info("process=delete-userinfo, user-info-id={}", id);
         User user = userService.findByUserInfoId(id);
-        user.setUserInfoId(0L);
+        user.setUserInfo(null);
         userService.updateUser(user);
         userInfoService.deleteUserInfo(id);
     }
-
-
-
-
-
-
 }

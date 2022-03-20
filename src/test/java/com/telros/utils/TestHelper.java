@@ -1,11 +1,13 @@
 package com.telros.utils;
 
+import com.telros.entity.Image;
 import com.telros.entity.User;
+import com.telros.entity.UserInfo;
 
+import java.sql.Timestamp;
 import java.util.Random;
 import java.util.UUID;
 
-import static java.lang.String.format;
 
 public class TestHelper {
     public static User buildUser() {
@@ -23,6 +25,29 @@ public class TestHelper {
                 .id(random.nextLong())
                 .username("username-"+uuid)
                 .password(uuid)
+                .build();
+    }
+
+    public static Image buildImage() {
+        Random random = new Random();
+        String uuid = UUID.randomUUID().toString();
+        return Image.builder()
+                .id(random.nextLong())
+                .url(uuid)
+                .build();
+    }
+
+    public static UserInfo buildUserInfo() {
+        Random random = new Random();
+        String uuid = UUID.randomUUID().toString();
+        Timestamp birthday = new Timestamp(System.currentTimeMillis());
+        return UserInfo.builder()
+                .id(random.nextLong())
+                .firstName("firstname-" + uuid)
+                .lastName("lastname-" + uuid)
+                .patronymic("patronymic-" + uuid)
+                .email("email-" + uuid)
+                .birthday(birthday)
                 .build();
     }
 }

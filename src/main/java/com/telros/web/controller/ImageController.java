@@ -2,14 +2,18 @@ package com.telros.web.controller;
 
 import com.telros.entity.Image;
 import com.telros.entity.User;
+import com.telros.model.ImageRequest;
 import com.telros.service.ImageService;
 import com.telros.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.Arrays.asList;
 
 @RestController
 @RequestMapping("/api/images")
@@ -26,24 +30,24 @@ public class ImageController {
     @GetMapping("")
     public List<Image> getImages () {
         log.info("process=get-images");
-        return imageService.getImages();
+        return imageService.getAllImages();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Image> getImage(@PathVariable Long id) {
         log.info("process=get-image, image_id={}", id);
-        Optional<Image> image = imageService.getImage(id);
+        Optional<Image> image = imageService.getImageById(id);
         return image.map(u -> ResponseEntity.ok(u))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/{userId}")
-    public Image createImage(@PathVariable Long userId, Image model){
-        log.info("process=create-image, user_id={}", userId);
-        Image image = imageService.createImage(model);
-        User user = userService.getUserById(userId).get();
-        user.setImageId(image.getId());
-        userService.updateUser(user);
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Image createImage(ImageRequest imageRequest){
+        log.info("process=create-image, user_id={}", imageRequest.getUserId());
+        Image image = imageService.createImage(imageRequest);
+        User user = userService.getUserById(imageRequest.getUserId()).get();
+        image.setUsers(asList(user));
         return image;
     }
 
@@ -57,9 +61,6 @@ public class ImageController {
     @DeleteMapping("/{id}")
     public void deleteImage(@PathVariable Long id) {
         log.info("process=delete-image, image_id={}", id);
-        User user = userService.findByImageId(id);
-        user.setImageId(0L);
-        userService.updateUser(user);
         imageService.deleteImage(id);
     }
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @Builder
@@ -18,7 +19,7 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Basic
     @Column(name = "first_name")
@@ -44,4 +45,6 @@ public class UserInfo {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @OneToOne(mappedBy = "userInfo")
+    private User user;
 }

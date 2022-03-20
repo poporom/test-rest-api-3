@@ -34,11 +34,13 @@ public class User {
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
-    @Column(name = "user_info_id")
-    private Long userInfoId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_info_id", referencedColumnName = "id")
+    private UserInfo userInfo;
 
-    @Column(name = "image_id")
-    private Long imageId;
+    @ManyToOne
+    @JoinColumn(name="image_id", nullable=false)
+    private Image image;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
