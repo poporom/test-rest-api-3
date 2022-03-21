@@ -19,8 +19,9 @@ import java.util.List;
 @Table(name = "images")
 public class Image {
     @Id
-    @SequenceGenerator(name = "images_id_generator", sequenceName = "images_id_seq")
-    @GeneratedValue(generator = "images_id_generator")
+//    @SequenceGenerator(name = "images_id_generator", sequenceName = "images_id_seq")
+//    @GeneratedValue(generator = "images_id_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -29,6 +30,6 @@ public class Image {
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
-    @OneToMany(mappedBy="image")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="image")
     private List<User> users;
 }

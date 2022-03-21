@@ -43,6 +43,7 @@ public class UserInfoController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserInfo createUserInfo(@RequestBody UserInfo userInfo) {
         log.info("process=create-userinfo, id={}", userInfo);
+        userInfo.setUser(userService.getUserById(userInfo.getUser().getId()).get());
         return userInfoService.createUserInfo(userInfo);
     }
 
@@ -50,15 +51,15 @@ public class UserInfoController {
     public UserInfo updateUserInfo(@PathVariable Integer id, @RequestBody UserInfo userInfo) {
         log.info("process=update-userinfo, user_info_id={}",id);
         userInfo.setId(id);
-        return userInfoService.updateUserInfo(userInfo);
+        //TODO faced with StackOverflowError
+        //userInfo.setUser(userService.getUserById(userInfo.getUser().getId()).get());
+        //return userInfoService.updateUserInfo(userInfo);
+        return userInfo;
     }
 
     @DeleteMapping("/{id}")
     public void deleteUserInfo(@PathVariable Integer id) {
         log.info("process=delete-userinfo, user-info-id={}", id);
-//        User user = userService.findByUserInfoId(id);
-//        user.setUserInfo(null);
-//        userService.updateUser(user);
         userInfoService.deleteUserInfo(id);
     }
 }

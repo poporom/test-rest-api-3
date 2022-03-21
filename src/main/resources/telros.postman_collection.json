@@ -1,0 +1,561 @@
+{
+	"info": {
+		"_postman_id": "5f848988-f96d-44b2-bb56-67ccfd84c626",
+		"name": "telros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test3\",\r\n    \"password\": \"$2a$10$LskLrNP6m.dEpXYjT41lRePseXJEjhd6.sPH2Z5GbbShtaFRWoeYq\",\r\n    \"enabled\": true,\r\n    \"userInfo\": {\r\n        \"email\": \"roman.s.popov20@gmail.com\"\r\n    },\r\n    \"image\": {\r\n        \"id\": 2,\r\n        \"url\": \"c:\\\\2.jpg\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJteWFwcCIsInN1YiI6ImFkbWluIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQ3ODE2Mzc0LCJleHAiOjE2NDg0MjExNzR9.-nFAJyQo-8aicQrqPfzRZsfyza22OM5_-gD754nq4g2liSoLaKKt06C_BhdzQZt2qBMUrnZxNTNapTV4mwCDhQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJteWFwcCIsInN1YiI6ImFkbWluIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQ3ODE1NjMyLCJleHAiOjE2NDg0MjA0MzJ9.qIEKW8b4NmmoEFBPrE0xz3yfNPpDhoAXZjW8RtHXyXcC-UV0-vL3v7Qtcr8_8Wd0oUrM6yuaqd5Wr1OZA3azoQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"username\": \"siva\",\r\n    \"password\": \"$2a$10$LskLrNP6m.dEpXYjT41lRePseXJEjhd6.sPH2Z5GbbShtaFRWoeYq\",\r\n    \"enabled\": false,\r\n    \"lastPasswordResetDate\": \"2022-03-20T22:33:32.806+0000\",\r\n    \"userInfo\": {\r\n        \"id\": 2,\r\n        \"firstName\": null,\r\n        \"lastName\": null,\r\n        \"patronymic\": null,\r\n        \"birthday\": null,\r\n        \"email\": \"roman.s.popov2@gmail.com\",\r\n        \"phoneNumber\": null,\r\n        \"user\": 2\r\n    },\r\n    \"image\": {\r\n        \"id\": 2,\r\n        \"url\": \"c:\\\\2.jpg\",\r\n        \"users\": [\r\n            2\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/-43",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"-43"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user info",
+			"item": [
+				{
+					"name": "create user info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJteWFwcCIsInN1YiI6ImFkbWluIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQ3ODE2Mzc0LCJleHAiOjE2NDg0MjExNzR9.-nFAJyQo-8aicQrqPfzRZsfyza22OM5_-gD754nq4g2liSoLaKKt06C_BhdzQZt2qBMUrnZxNTNapTV4mwCDhQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\" : {\"id\": 2},\r\n    \"firstName\": \"Roman\",\r\n    \"email\":\"roman.s.popov19@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/userinfos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"userinfos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user info by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/userinfos/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"userinfos",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user info id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\" : {\"id\": 2},\r\n    \"email\":\"roman.s.popov5@gmail.com\",\r\n    \"firstName\": \"Roman\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/userinfos/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"userinfos",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user info id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/userinfos/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"userinfos",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJteWFwcCIsInN1YiI6ImFkbWluIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQ3ODE2Mzc0LCJleHAiOjE2NDg0MjExNzR9.-nFAJyQo-8aicQrqPfzRZsfyza22OM5_-gD754nq4g2liSoLaKKt06C_BhdzQZt2qBMUrnZxNTNapTV4mwCDhQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/userinfos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"userinfos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "image",
+			"item": [
+				{
+					"name": "create image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJteWFwcCIsInN1YiI6ImFkbWluIiwiYXVkIjoid2ViIiwiaWF0IjoxNjQ3ODE2Mzc0LCJleHAiOjE2NDg0MjExNzR9.-nFAJyQo-8aicQrqPfzRZsfyza22OM5_-gD754nq4g2liSoLaKKt06C_BhdzQZt2qBMUrnZxNTNapTV4mwCDhQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"users\": [{\"id\": 3},{\"id\": 2}],\r\n    \"url\": \"C\\\\4.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/images",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get image by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/images/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"images",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update image by id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete image by id",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get images",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/images",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"images"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_id\n",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "info_id\n",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "image_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

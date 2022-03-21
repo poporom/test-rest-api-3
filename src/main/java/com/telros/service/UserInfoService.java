@@ -13,12 +13,10 @@ import java.util.Optional;
 @Transactional
 public class UserInfoService {
     private final UserInfoRepository userInfoRepository;
-    private final UserService userService;
 
     @Autowired
-    public UserInfoService(UserInfoRepository userInfoRepository, UserService userService) {
+    public UserInfoService(UserInfoRepository userInfoRepository) {
         this.userInfoRepository = userInfoRepository;
-        this.userService = userService;
     }
 
     public Optional<UserInfo> getUserInfoById(Integer id) {
@@ -30,7 +28,6 @@ public class UserInfoService {
     }
 
     public UserInfo createUserInfo(UserInfo userInfo) {
-        userInfo.setUser(userService.getUserById(userInfo.getUser().getId()).get());
         return userInfoRepository.save(userInfo);
     }
 

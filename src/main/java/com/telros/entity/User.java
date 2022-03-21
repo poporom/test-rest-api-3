@@ -20,8 +20,9 @@ import java.util.List;
 public class User {
 
     @Id
-    @SequenceGenerator(name = "users_id_generator", sequenceName = "users_id_seq")
-    @GeneratedValue(generator = "users_id_generator")
+//    @SequenceGenerator(name = "users_id_generator", sequenceName = "users_id_seq")
+//    @GeneratedValue(generator = "users_id_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "username", unique = true)
@@ -36,14 +37,12 @@ public class User {
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_info_id", nullable = false)
-    @NotNull
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_info_id")
     private UserInfo userInfo;
 
     @ManyToOne
-    @JoinColumn(name="image_id", nullable = false)
-    @NotNull
+    @JoinColumn(name="image_id")
     private Image image;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

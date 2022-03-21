@@ -1,5 +1,6 @@
 package com.telros.service;
 
+import com.telros.entity.Image;
 import com.telros.entity.User;
 import com.telros.entity.UserInfo;
 import com.telros.repo.UserRepository;
@@ -10,15 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.google.common.primitives.Longs.asList;
-
 @Service
 @Transactional
 public class UserService {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserInfoService userInfoService, ImageService imageService) {
         this.userRepository = userRepository;
     }
 

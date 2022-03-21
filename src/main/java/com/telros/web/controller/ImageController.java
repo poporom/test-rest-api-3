@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 
@@ -44,7 +45,11 @@ public class ImageController {
     @ResponseStatus(HttpStatus.CREATED)
     public Image createImage(@RequestBody Image image){
         log.info("process=create-image, id={}", image.getId());
-         return imageService.createImage(image);
+        List<User> collect = image.getUsers().stream()
+            .map(model -> userService.getUserById(model.getId()).get())
+            .collect(Collectors.toList());
+        image.setUsers(collect);
+        return imageService.createImage(image);
     }
 
     @PutMapping("/{id}")
@@ -57,9 +62,6 @@ public class ImageController {
     @DeleteMapping("/{id}")
     public void deleteImage(@PathVariable Integer id) {
         log.info("process=delete-image, image_id={}", id);
-//        User user = userService.findByUserInfoId(id);
-//        user.setImage(null);
-//        userService.updateUser(user);
         imageService.deleteImage(id);
     }
 }

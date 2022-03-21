@@ -19,8 +19,10 @@ import java.sql.Timestamp;
 public class UserInfo {
 
     @Id
-    @SequenceGenerator(name = "user_info_id_generator", sequenceName = "user_info_id_seq")
-    @GeneratedValue(generator = "user_info_id_generator")
+    //TODO findout why it is not working
+//    @SequenceGenerator(name = "user_info_id_generator", sequenceName = "user_info_id_seq")
+//    @GeneratedValue(generator = "user_info_id_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Basic
@@ -49,7 +51,6 @@ public class UserInfo {
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
-    @OneToOne(optional= false, mappedBy="userInfo")
-    @NotNull
+    @OneToOne(cascade=CascadeType.ALL, optional= false, mappedBy="userInfo")
     private User user;
 }

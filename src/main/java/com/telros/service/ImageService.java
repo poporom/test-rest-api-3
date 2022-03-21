@@ -17,12 +17,10 @@ import static java.util.Arrays.asList;
 @Transactional
 public class ImageService {
     private final ImageRepository imageRepository;
-    private final UserService userService;
 
     @Autowired
-    public ImageService(ImageRepository imageRepository, UserService userService) {
+    public ImageService(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
-        this.userService = userService;
     }
 
     public List<Image> getAllImages() {
@@ -34,10 +32,6 @@ public class ImageService {
     }
 
     public Image createImage(Image image) {
-        List<User> collect = image.getUsers().stream()
-                .map(model -> userService.getUserById(model.getId()).get())
-                .collect(Collectors.toList());
-        image.setUsers(collect);
         return imageRepository.save(image);
     }
 
